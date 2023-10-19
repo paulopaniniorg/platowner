@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: platowner
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: platowner
+  template:
+    metadata:
+      labels:
+        app: platowner
+    spec:
+      containers:
+      - name:  platowner
+        image: ghcr.io/paulopaniniorg/platowner:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+      imagePullSecrets:
+      - name: github-secret
